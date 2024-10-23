@@ -14,13 +14,6 @@ const {
 } = require("./middlewares/authentication");
 const router = require("./routes/user");
 
-app.use(
-  cors({
-    origin: [""],
-    methods: ["POST", "GET"],
-    credential: true,
-  })
-);
 
 const app = express();
 const PORT = process.env.PORT;
