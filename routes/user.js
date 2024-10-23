@@ -30,12 +30,22 @@ router.get("/logout", (req, res) => {
 
 router.post("/signup", async (req, res) => {
   const { fullName, email, password } = req.body;
-  await User.create({
-    fullName,
-    email,
-    password,
-  });
-  return res.redirect("/");
+  try {
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.render("signup", { error: "This Email is already in use" });
+    }
+    await User.create({
+      fullName,
+      email,
+      password,
+    });
+
+    return res.redirect("/");
+  } catch (error) {
+    console.error("Error during signup:", error);
+    res.status(500).send("Internal server error");
+  }
 });
 
 module.exports = router;

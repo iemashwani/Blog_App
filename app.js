@@ -1,9 +1,10 @@
+require("dotenv").config();
+
 const path = require("path");
 const express = require("express");
 const mongoose = require("mongoose");
-
 const Blog = require("./models/blog");
-// require("dotenv").config();
+
 // const dbLink = process.env.DB_URL;
 const cookiesParser = require("cookie-parser");
 
@@ -16,13 +17,9 @@ const {
 } = require("./middlewares/authentication");
 
 const app = express();
-const PORT = 8000;
+const PORT = process.env.PORT;
 
-mongoose
-  .connect(
-    "mongodb+srv://as3141538:Blogify123@cluster0.arwe9.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
-  )
-  .then((e) => console.log("MongoDB Connected"));
+mongoose.connect(process.env.MONGO_URL).then((e) => console.log("MongoDB Connected"));
 
 app.set("view engine", "ejs");
 app.set("views", path.resolve("./views"));
