@@ -4,22 +4,34 @@ const path = require("path");
 const express = require("express");
 const mongoose = require("mongoose");
 const Blog = require("./models/blog");
-
-// const dbLink = process.env.DB_URL;
 const cookiesParser = require("cookie-parser");
 
 const userRoutes = require("./routes/user");
 const blogRoutes = require("./routes/blog");
 
-const { configDotenv } = require("dotenv");
 const {
   checkForAuthenticationCookie,
 } = require("./middlewares/authentication");
+const router = require("./routes/user");
+
+app.use(
+  cors({
+    origin: [""],
+    methods: ["POST", "GET"],
+    credential: true,
+  })
+);
 
 const app = express();
 const PORT = process.env.PORT;
 
-mongoose.connect(process.env.MONGO_URL).then((e) => console.log("MongoDB Connected"));
+app.get("/", (req, res) => {
+  res.json("Hello");
+});
+
+mongoose
+  .connect(process.env.MONGO_URL)
+  .then((e) => console.log("MongoDB Connected"));
 
 app.set("view engine", "ejs");
 app.set("views", path.resolve("./views"));
