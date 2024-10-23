@@ -18,9 +18,6 @@ const router = require("./routes/user");
 const app = express();
 const PORT = process.env.PORT;
 
-app.get("/", (req, res) => {
-  res.json("Hello");
-});
 
 mongoose
   .connect(process.env.MONGO_URL)
