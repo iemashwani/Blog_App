@@ -10,7 +10,7 @@ const commentSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: "blog",
     },
-    craetedBy: {
+    createdBy: {
       type: Schema.Types.ObjectId,
       ref: "user",
     },
